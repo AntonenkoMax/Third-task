@@ -2,8 +2,11 @@
 function fuctorial(num) {
 	let res = 1
 
-	//Если заданное число ноль то ответ 1
-	if (num === 0) {
+	//Если чилсо меньше 0 выводим сообщение 
+	if (num < 0) {
+		console.log("Введите число от 0 и выше!!!");
+		//Если заданное число ноль то ответ 1
+	} else if (num === 0) {
 		return res;
 	} else if (num > 0) {
 		//Цикл производит умножение пока не сравняеться с атрибутом функции
@@ -30,7 +33,7 @@ function fib(n) {
 	//запускаем цикл пока не сравняемся с аргументом функции
 	for (let i = 3; i <= n; i++) {
 		//получаем след. число из последовательности
-		let c = a + b;
+		const c = a + b;
 		//обновляем два последних значиния
 		a = b;
 		b = c;
@@ -39,8 +42,9 @@ function fib(n) {
 	}
 }
 
+//Ещё один вариантрешения
 function fib2(num) {
-	let arr = [
+	const arr = [
 		1,
 		1,
 	];
@@ -56,7 +60,7 @@ function fib2(num) {
 		//начинаем с третего числа так как первые два занесены в стоковый массив
 		for (let i = 3; i <= num; i++) {
 			//суммируем последние два числа массива (он же последовательность)
-			let res = arr[arr.length - 2] + arr[arr.length - 1];
+			const res = arr[arr.length - 2] + arr[arr.length - 1];
 			//вносим в масиив полученое новое число
 			arr.push(res);
 		}
@@ -70,7 +74,7 @@ function fib2(num) {
 //Дана строка. написать функцию, которая возвращает значение true, если строка является палиндромом, и false — если нет.
 function isPalindrome(str) {
 	//делим строку в масив побуквенно. Переворачиваем. Соединяем в строку
-	let strReverse = str.split('').reverse().join('');
+	const strReverse = str.split('').reverse().join('');
 	//Сравниваем перевернутую строку с оригинналом
 	return str === strReverse;
 }
@@ -89,8 +93,8 @@ let test2 = isPalindrome('abcded');
 //Даны две строки. написать функцию, которая проверяет, являются ли строки анаграммами (регистр букв не имеет значения).
 function isAnagram(original, test) {
 	//Регулярное выражение \s+ находит все whitespace символы в строке, меняем их на пустую строку.Переводим все к нижнему регистру. Делим в масив. Сортируем. Составляем строку
-	let firstString = original.replace(/\s+/g, '').toLowerCase().split('').sort().join('');
-	let secondString = test.replace(/\s+/g, '').toLowerCase().split('').sort().join('');
+	const firstString = original.replace(/\s+/g, '').toLowerCase().split('').sort().join('');
+	const secondString = test.replace(/\s+/g, '').toLowerCase().split('').sort().join('');
 
 	//Cравниваем полученые строки
 	return firstString === secondString;
@@ -107,14 +111,20 @@ isAnagram(str1, str2);
 =============================================*/
 //Даны две даты. написать функцию, которая определяет сколько дней прошло между ними.
 function howManyDays(date1, date2) {
-	//Создаем обьекты Date
-	let dateA = new Date(date1);//как вариант можно записать в милисек Date.parse(date1)
-	let dateB = new Date(date2);
+	//Если первый или вторной аргумент введены не в верном формате, выводим сообщение
+	if (new Date(date1) == 'Invalid Date' || new Date(date2) == 'Invalid Date') {
+		console.log("Введите дату в формате 'YYYY-MM-DD'");
+		//Если оба аргмент валидны то....
+	} else {
+		//Создаем обьекты Date
+		const dateA = new Date(date1);//как вариант можно записать в милисек Date.parse(date1)
+		const dateB = new Date(date2);
 
-	//Вычисляем разницу в милисекундах и переводим в дни
-	let res = (dateA - dateB) / 1000 / 60 / 60 / 24;
-	//Если результат положительный то выводим, если отрицательный то убераем минус и выводим
-	res > 0 ? console.log(res) : console.log(res * -1);
+		//Вычисляем разницу в милисекундах и переводим в дни
+		const res = (dateA - dateB) / 1000 / 60 / 60 / 24;
+		//Если результат положительный то выводим, если отрицательный то убераем минус и выводим
+		res > 0 ? console.log(res) : console.log(res * -1);
+	}
 }
 
 let date1 = "2017-01-01";
@@ -127,17 +137,17 @@ let date2 = "2017-01-03";
 //Дано число. написать функцию решения счастливого билета (сумма первых 3х цифр равно сумме вторых 3х)
 function isLucky(number) {
 	//Конвектируем в строку, делим в отдельные елементы массива, конвектируем полученые елементы обратно с числа
-	let num = String(number).split("").map(Number);
+	const num = String(number).split("").map(Number);
 
 	//создаем два массива, правая часть и левая. 
-	let arrL = num.slice(0, num.length / 2);
-	let arrR = num.slice(num.length / 2);
+	const arrL = num.slice(0, num.length / 2);
+	const arrR = num.slice(num.length / 2);
 
 	//Методом reduce суммируем числа из элементов массива
-	let sumL = arrL.reduce(function (sum, current) {
+	const sumL = arrL.reduce(function (sum, current) {
 		return sum + current
 	}, 0);
-	let sumR = arrR.reduce(function (sum, current) {
+	const sumR = arrR.reduce(function (sum, current) {
 		return sum + current
 	}, 0);
 
@@ -153,10 +163,10 @@ function isLucky(number) {
 //Дано число. вычислить сумму n последних цифр числа m
 function sumLastNum(m, n) {
 	//Конвектируем в строку, делим в отдельные елементы массива, конвектируем полученые елементы обратно с числа
-	let num = String(m).split("").map(Number);
+	const num = String(m).split("").map(Number);
 
 	//Запускаем reduce. Если индекс массива попадает в вилку последних "n" чисел суммируем их значения 
-	let sum = num.reduce(function (sum, item, index) {
+	const sum = num.reduce(function (sum, item, index) {
 		if (index >= num.length - n) {
 			sum += item;
 		}
@@ -177,7 +187,7 @@ function howManySign(arr) {
 	//запускаем цикл пока счетчик "i" меньше длины массива
 	for (i = 0; i < arr.length; i++) {
 		//добавляю переменную чтоб в последствии не сбивать счетчик "i"
-		let n = i++;
+		const n = i++;
 		//если знак текущего элемента не совпадает с знаком следующего увеличиваем счетчик "calc" на 1
 		if (Math.sign(arr[i]) != Math.sign(arr[n])) {
 			calc++;
@@ -197,9 +207,9 @@ function isSort(arr) {
 	let answer = true;
 
 	//создаем копию изначального массива
-	let notSort = arr.concat();
+	const notSort = arr.concat();
 	//сортируем изначчальный массив
-	let sortArr = arr.sort((a, b) => a - b);
+	const sortArr = arr.sort((a, b) => a - b);
 
 	console.log(notSort);
 	console.log(sortArr);
@@ -215,8 +225,8 @@ function isSort(arr) {
 
 //Не стандартное решение
 function isSorSecond(arr) {
-	let notSort = arr.concat();
-	let sortArr = arr.sort((a, b) => a - b);
+	const notSort = arr.concat();
+	const sortArr = arr.sort((a, b) => a - b);
 	//В случае сравнивания "строковых" вариантов одинаковых массивов ответ true
 	console.log(JSON.stringify(notSort) == JSON.stringify(sortArr));
 }
@@ -232,9 +242,9 @@ function isSortLetter(arr) {
 	let answer = true;
 
 	//создаем копию изначального массива
-	let notSort = arr.concat();
+	const notSort = arr.concat();
 	//сортируем изначчальный массив
-	let sortArr = arr.sort();
+	const sortArr = arr.sort();
 
 	console.log(notSort);
 	console.log(sortArr);
@@ -260,7 +270,7 @@ function isSortLetter(arr) {
 //Дан массив с числами. Не используя метода reverse переверните его элементы в обратном порядке.
 function rev(arr) {
 	//Создаю пустой массив
-	let res = [];
+	const res = [];
 
 	//i=индексу последнего элемента массива, пока счетчик не пройдет все элементы массива 
 	for (let i = arr.length - 1; i >= 0; i--) {
@@ -304,12 +314,12 @@ function generatePyramid() {
 /*Дан двухмерный массив с числами, например `[[1, 2, 3], [4, 5], [6]]`. Найдите сумму элементов этого массива.
 Массив, конечно же, может быть произвольным.*/
 function arrSum(arr) {
-	var sum = 0;
+	let sum = 0;
 
 	//перебираем массив 
 	arr.forEach(function (v) {
 		//проверяем элементы массива являються ли они масивами
-		if (typeof v == "object") {
+		if (Array.isArray(v) === true) {
 			//если да то закидываем элемент в наш функцию создавая тем самым уровень рекурсии
 			sum += arrSum(v);
 		} else {
@@ -331,7 +341,7 @@ function happy13(start, end) {
 	//подготовил паустой массив чтоб в него мапить цифры
 	let num;
 	//массив для ответов
-	let list = [];
+	const list = [];
 
 	//стартуем с и до
 	for (i = start; i <= end; i++) {
@@ -352,10 +362,10 @@ function happy13(start, end) {
 //Дана строка вида 'var_text_hello'. Сделайте из него текст 'varTextHello'
 function toCamelCase(str) {
 	//спличу строку на элементы массива по разделителю"_"
-	let arr = str.split("_");
+	const arr = str.split("_");
 
 	//перебираю массив
-	let strCC = arr.map((word, index) => {
+	const strCC = arr.map((word, index) => {
 		//если индекс слова равен 0 
 		if (index === 0) {
 			//просто возвращаю слово нетронутым
@@ -367,7 +377,7 @@ function toCamelCase(str) {
 	});
 
 	//клею массив в одно слово
-	let q = strCC.join('');
+	const q = strCC.join('');
 	return q;
 }
 
@@ -386,7 +396,7 @@ function lessThan9(num) {
 		console.log(num);
 	} else { //иначе
 		//в строку. Делин в посимвольно в масив. Мапим из строк в числа. Склдываем числа 
-		let sum = String(num).split("").map(Number).reduce((a, b) => a + b, 0);
+		const sum = String(num).split("").map(Number).reduce((a, b) => a + b, 0);
 		//Закидываем полученый результат на проверку
 		lessThan9(sum);
 	}
